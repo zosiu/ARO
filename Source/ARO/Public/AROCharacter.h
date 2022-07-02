@@ -44,5 +44,5 @@ protected:
 
 	void Input_Move(const FInputActionValue& InputActionValue);
 	void Input_Look(const FInputActionValue& InputActionValue);
-	void Input_Fire(const FInputActionValue& InputActionValue);
+	void Input_Fire();
 };

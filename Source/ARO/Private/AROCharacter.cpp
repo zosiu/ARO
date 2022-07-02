@@ -33,6 +33,7 @@ void AAROCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInput
 	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Mouse, ETriggerEvent::Triggered, this, &AAROCharacter::Input_Look);
 	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Stick, ETriggerEvent::Triggered, this, &AAROCharacter::Input_Look);
 	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Fire, ETriggerEvent::Triggered, this, &AAROCharacter::Input_Fire);
+	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Jump, ETriggerEvent::Triggered, this, &AAROCharacter::Jump);
 }
 
 void AAROCharacter::TurnAtRate(float Rate)
@@ -81,7 +82,7 @@ void AAROCharacter::Input_Look(const FInputActionValue& InputActionValue)
 	}
 }
 
-void AAROCharacter::Input_Fire(const FInputActionValue& /* InputActionValue */)
+void AAROCharacter::Input_Fire()
 {
 	if (ProjectileClass)
 	{
