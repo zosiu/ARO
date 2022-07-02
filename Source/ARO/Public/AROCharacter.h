@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 
-#include "GameFramework/Character.h"
 #include "EnhancedInput/Public/InputActionValue.h"
+#include "GameFramework/Character.h"
 
 #include "AROCharacter.generated.h"
 

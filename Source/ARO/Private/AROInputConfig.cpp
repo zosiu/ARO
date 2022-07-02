@@ -2,8 +2,8 @@
 
 #include "AROInputConfig.h"
 
-#include "GameplayTagContainer.h"
 #include "EnhancedInput/Public/InputAction.h"
+#include "GameplayTagContainer.h"
 
 const UInputAction* UAROInputConfig::FindInputActionForTag(const FGameplayTag& InputTag) const
 {

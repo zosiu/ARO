@@ -2,8 +2,8 @@
 
 #include "ARONativeGameplayTags.h"
 
-#include "GameplayTagsManager.h"
 #include "Engine/EngineTypes.h"
+#include "GameplayTagsManager.h"
 
 FARONativeGameplayTags FARONativeGameplayTags::GameplayTags;
 
