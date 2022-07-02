@@ -32,6 +32,7 @@ void AAROCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInput
 	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Move, ETriggerEvent::Triggered, this, &AAROCharacter::Input_Move);
 	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Mouse, ETriggerEvent::Triggered, this, &AAROCharacter::Input_Look);
 	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Look_Stick, ETriggerEvent::Triggered, this, &AAROCharacter::Input_Look);
+	EnhancedInputComponent->BindActionByTag(InputConfig, GameplayTags.InputTag_Fire, ETriggerEvent::Triggered, this, &AAROCharacter::Input_Fire);
 }
 
 void AAROCharacter::TurnAtRate(float Rate)
@@ -77,5 +78,16 @@ void AAROCharacter::Input_Look(const FInputActionValue& InputActionValue)
 		{
 			LookUpAtRate(LookValue.Y);
 		}
+	}
+}
+
+void AAROCharacter::Input_Fire(const FInputActionValue& /* InputActionValue */)
+{
+	if (ProjectileClass)
+	{
+		FTransform SpawnTransform(GetActorRotation(), GetMesh()->GetSocketLocation("Muzzle_01"));
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTransform, SpawnParams);
 	}
 }

@@ -26,7 +26,10 @@ public:
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
-	UAROInputConfig* InputConfig;
+	TObjectPtr<UAROInputConfig> InputConfig;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> ProjectileClass;
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USpringArmComponent> SpringArmComponent;
@@ -41,4 +44,5 @@ protected:
 
 	void Input_Move(const FInputActionValue& InputActionValue);
 	void Input_Look(const FInputActionValue& InputActionValue);
+	void Input_Fire(const FInputActionValue& InputActionValue);
 };

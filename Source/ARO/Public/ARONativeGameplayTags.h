@@ -19,6 +19,7 @@ public:
 	FGameplayTag InputTag_Move;
 	FGameplayTag InputTag_Look_Mouse;
 	FGameplayTag InputTag_Look_Stick;
+	FGameplayTag InputTag_Fire;
 
 protected:
 	void AddAllTags(UGameplayTagsManager& Manager);
