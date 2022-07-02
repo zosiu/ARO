@@ -14,3 +14,13 @@ AAROCharacter::AAROCharacter()
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>("Camera");
 	CameraComponent->SetupAttachment(SpringArmComponent);
 }
+
+void AAROCharacter::MoveForward(float ScaleValue)
+{
+	AddMovementInput(GetActorForwardVector(), ScaleValue);
+}
+
+void AAROCharacter::Turn(float Val)
+{
+	AddControllerYawInput(Val);
+}

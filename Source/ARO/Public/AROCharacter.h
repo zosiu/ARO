@@ -25,4 +25,10 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UCameraComponent> CameraComponent;
+
+	UFUNCTION(BlueprintCallable)
+	void MoveForward(float ScaleValue);
+
+	UFUNCTION(BlueprintCallable)
+	void Turn(float Val);
 };
