@@ -6,17 +6,21 @@
 #include "Camera/CameraComponent.h"
 #include "AROEnhancedInputComponent.h"
 #include "ARONativeGameplayTags.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 AAROCharacter::AAROCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
-
 	TurnRate = 45.0f;
 
 	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
+	SpringArmComponent->bUsePawnControlRotation = true;
 	SpringArmComponent->SetupAttachment(RootComponent);
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>("Camera");
 	CameraComponent->SetupAttachment(SpringArmComponent);
+
+	bUseControllerRotationYaw = false;
+	GetCharacterMovement()->bOrientRotationToMovement = true;
 }
 
 void AAROCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -42,22 +46,19 @@ void AAROCharacter::LookUpAtRate(float Rate)
 
 void AAROCharacter::Input_Move(const FInputActionValue& InputActionValue)
 {
-	if (Controller != nullptr)
+	const FVector2D MoveValue = InputActionValue.Get<FVector2D>();
+	const FRotator MovementRotation(0.0f, GetControlRotation().Yaw, 0.0f);
+
+	if (MoveValue.X != 0.0f)
 	{
-		const FVector2D MoveValue = InputActionValue.Get<FVector2D>();
-		const FRotator MovementRotation(0.0f, Controller->GetControlRotation().Yaw, 0.0f);
+		const FVector MovementDirection = MovementRotation.RotateVector(FVector::RightVector);
+		AddMovementInput(MovementDirection, MoveValue.X);
+	}
 
-		if (MoveValue.X != 0.0f)
-		{
-			const FVector MovementDirection = MovementRotation.RotateVector(FVector::RightVector);
-			AddMovementInput(MovementDirection, MoveValue.X);
-		}
-
-		if (MoveValue.Y != 0.0f)
-		{
-			const FVector MovementDirection = MovementRotation.RotateVector(FVector::ForwardVector);
-			AddMovementInput(MovementDirection, MoveValue.Y);
-		}
+	if (MoveValue.Y != 0.0f)
+	{
+		const FVector MovementDirection = MovementRotation.RotateVector(FVector::ForwardVector);
+		AddMovementInput(MovementDirection, MoveValue.Y);
 	}
 }
 
